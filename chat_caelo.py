@@ -7,7 +7,7 @@ import speech_recognition as ser
 from datetime import datetime
 # pega o arquivo para ser randomizado
 
-pergunta = 'Ok. Obrigado. Vou ficando por aqui. Boa noite. Amanhã a gente continua.'
+pergunta = 'Devo participar do estudo com o Adriano do canal ponto de espiritualidade?'
 
 frequencia = 44100
 quantas_partes_divide_audio = 500
@@ -62,10 +62,16 @@ try:
       print('O texto da transcrição do áudio será impresso abaixo:')
       texto = rec.recognize_google(audio, language="pt-BR")
       print(texto)
-except sr.UnknownValueError:
-   print("Não consegui transcrever esse áudio")
-except ser.RequestError as e:
-   print(f"Deu o seguinte erro ao solicitar o serviço de transcrição: {e}")
+except:
+    texto = "Não consegui transcrever esse áudio"
+    print(texto)
+
+transcricao = f"Data: {data}; Pergunta: {pergunta}; Resposta: {texto}\n"
+
+arquivo = open("conversas.txt", "a")
+arquivo.write(transcricao)
+arquivo.close()
+
 
 
 
